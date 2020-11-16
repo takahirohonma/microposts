@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Micropost;
 
 class UsersController extends Controller
 {
@@ -20,14 +21,20 @@ class UsersController extends Controller
 
         // 関係するモデルの件数をロード
         $user->loadRelationshipCounts();
+        
+        // $test = $user->favorites();
+        
+        // dd($test);
+        
 
         // ユーザの投稿一覧を作成日時の降順で取得
         $microposts = $user->microposts()->orderBy('created_at', 'desc')->paginate(10);
-
+        //  dd($microposts);
         // ユーザ詳細ビューでそれらを表示
         return view('users.show', [
             'user' => $user,
             'microposts' => $microposts,
+            
         ]);
     }
     
@@ -65,5 +72,27 @@ class UsersController extends Controller
             'user' => $user,
             'users' => $followers,
         ]);
+    }
+    
+    public function favorites($id)
+    {
+        // idの値でユーザを検索して取得
+        $user = User::findOrFail($id);
+
+        // 関係するモデルの件数をロード
+        $user->loadRelationshipCounts();
+        
+        //idの値で投稿内容を検索して取得
+        // $micropost = Micropost::find($id);
+        
+        // $micropost->loadRelationshipCounts();
+        $micropost = $user->microposts();
+        
+        //ユーザーのお気に入り一覧を取得
+        $favorites = $user->favorites()->paginate(10);
+        
+        //  dd($micropost);
+        //お気に入り一覧で取得した情報を表示する
+        return view('users.favorites', ['user' => $user , 'micropost' => $micropost, 'favorites' => $favorites, ]);
     }
 }
