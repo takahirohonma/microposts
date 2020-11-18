@@ -153,4 +153,5 @@ class User extends Authenticatable
         // 投稿内容に $micropostIdのものが存在するか
         return $this->favorites()->where('micropost_id', $postId)->exists();
     }
+    
 }

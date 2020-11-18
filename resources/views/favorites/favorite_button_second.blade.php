@@ -1,11 +1,16 @@
-    @if(Auth::user()->is_favorite($micropost->id))
-    {{--お気に入り登録ボタンを表示--}}
-    {!! Form::open(['route' => ['favorites.favorite', $micropost->id]]) !!}
-        {!! Form::submit('Favorite', ['class' => "btn btn-primary"]) !!}
-    {!! Form::close() !!}
-    @else
-    {{--お気に入り解除ボタンを表示--}}
-    {!! Form::open(['route' => ['favorites.unfavorite', $micropost->id], 'method' => 'delete']) !!}
-        {!! Form::submit('Unfavorite', ['class' => "btn btn-danger"]) !!}
-    {!! Form::close() !!}
-    @endif
+
+@if (Auth::user()->is_favorite($favorite->id))
+
+        {!! Form::open(['route' => ['favorites.unfavorite', $favorite->id], 'method' => 'delete']) !!}
+            {!! Form::submit('お気に入りを外す', ['class' => "button btn btn-warning"]) !!}
+        {!! Form::close() !!}
+
+@else
+
+        {!! Form::open(['route' => ['favorites.favorite', $favorite->id]]) !!}
+            {!! Form::submit('お気に入りを付ける', ['class' => "button btn btn-success"]) !!}
+        {!! Form::close() !!}
+
+@endif
+    
+    
