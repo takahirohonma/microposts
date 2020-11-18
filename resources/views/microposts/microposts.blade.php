@@ -31,4 +31,5 @@
     </ul>
     {{-- ページネーションのリンク --}}
     {{ $microposts->links() }}
+    
 @endif

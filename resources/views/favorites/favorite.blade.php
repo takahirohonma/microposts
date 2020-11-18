@@ -15,7 +15,7 @@
                         <p class="mb-0">{!! nl2br(e($favorite->content)) !!}</p>
                     </div>
                     <div>
-                        @include('favorites.favorite_button')
+                        @include('favorites.favorite_button_second')
                     </div>
                 </div>
             </li>

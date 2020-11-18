@@ -1,4 +1,3 @@
-
 @if (Auth::user()->is_favorite($micropost->id))
         {!! Form::open(['route' => ['favorites.unfavorite', $micropost->id], 'method' => 'delete']) !!}
             {!! Form::submit('お気に入りを外す', ['class' => "button btn btn-warning"]) !!}

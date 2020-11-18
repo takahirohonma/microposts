@@ -80,13 +80,15 @@ class UsersController extends Controller
         $user->loadRelationshipCounts();
         
         // idの値で投稿内容を検索して取得
-        $micropost = Micropost::findOrFail($id);
-        
-        $micropost->loadRelationshipCounts();
-        
+        $micropost = Micropost::find($id);                                          //$micropost = User::findOrFail($id); 
+
+        $micropost->loadRelationshipCounts();                                       //$micropost->favorite($id);
+        // dd($micropost);
         //ユーザーのお気に入り一覧を取得
-        $favorites = $user->favorites()->paginate(10);
+        $favorites = $user->favorites()->paginate(10);                              
         
         return view('users.favorites', ['user' => $user , 'micropost' => $micropost, 'favorites' => $favorites,]);
+        
+        
     }
 }
